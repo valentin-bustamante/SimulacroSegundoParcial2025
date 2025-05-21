@@ -40,15 +40,37 @@ class VagonPasajeros extends Vagon{
 
     //calcularPesoVagon
 
-    public function cal
-
-
-
+    public function calcularPesoVagon($peso_adicional=null): float {
+    $peso_pasajeros = $this->getPesoPasajerosPromedio();
+    $cantidad_pasajeros = $this->getPasajerosTransportados();
+    $peso_adicional = $cantidad_pasajeros * $peso_pasajeros;
+    
+    return parent::calcularPesoVagon($peso_adicional);
+}
     //incorporarPasajeroVagon
 
     public function incorporarPasajeroVagon($cantidad_pasajeros_nuevos){
-
+        $exito = false;
+        $capacidad = $this->getCantidadMaximaPasajeros();
+        $pasajeros_abordo = $this->getPasajerosTransportados();
+        $pasajeros_totales = $pasajeros_abordo + $cantidad_pasajeros_nuevos;
+        if ($pasajeros_totales <= $capacidad) {
+            $exito = true;
+            $this-> setPasajerosTransportados($pasajeros_totales);
+        }
+        return $exito;
     }
-	
+
+    //__toString
+
+    public function __toString(){
+    return "Vagón de Pasajeros:\n" .
+           parent::__toString() .
+           "Capacidad máxima de pasajeros: " . $this->getCantidadMaximaPasajeros() . "\n" .
+           "Pasajeros transportados: " . $this->getPasajerosTransportados() . "\n" .
+           "Peso promedio por pasajero: " . $this->getPesoPasajerosPromedio() . " kg\n" .
+           "Peso total del vagón: " . $this->calcularPesoVagon() . " kg\n";
+    }
+
 
 }

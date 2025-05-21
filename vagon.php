@@ -37,14 +37,11 @@ class Vagon{
 
 	//calcularPesoVagon
 
-    public function calcularPesoVagon($peso_adicional){
-        $peso_vacio = $this->getPesoVacio();
-        $peso_total = 0;
-        if ($peso_adicional > 0) {
-            $peso_total = $peso_adicional + $peso_vacio;
-        }
-        return $peso_total;
-    }
+   public function calcularPesoVagon($peso_adicional = 0) {
+    $peso_vacio = $this->getPesoVacio();
+    return $peso_vacio + $peso_adicional;
+}
+
 
     //__toString
 
